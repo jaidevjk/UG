@@ -9,6 +9,13 @@ import { Link } from "react-router-dom";
 import $ from "jquery";
 import { trackPromise } from "react-promise-tracker";
 
+//Below code is for phonenumber validation
+const required = value => value ? undefined : 'Required'
+const lengthVal = max => value =>
+    value && value.length > max ||value && value.length < max ? `Must be ${max} characters` : undefined
+const lengthReq = lengthVal(10)
+
+
 class Signup extends Component {
   componentDidMount() {
     $(".show").on("click", () => {
@@ -21,6 +28,8 @@ class Signup extends Component {
       }
     });
   }
+
+ 
 
   renderInput({ input, type, label, meta, placeholder }) {
     return (
@@ -107,13 +116,23 @@ class Signup extends Component {
                               required
                             />
 
-                            <Field
+                            {/* <Field
                               type="number"
                               name="mobile"
                               label="Mobile Number"
                               component={this.renderInput}
                               placeholder="Number"
+                            /> */}
+
+                          <Field
+                              type="number"
+                              name="mobile"
+                              label="Mobile Number"
+                              validate={[lengthReq,required ]}
+                              component={this.renderInput}
+                              placeholder="Number"
                             />
+
                             <Field
                               type="email"
                               name="email"
@@ -200,3 +219,13 @@ export default compose(
   reduxForm({ form: "signinForm", validate }),
   connect(mapStateToProps, { signup })
 )(withRouter(Signup));
+
+
+
+{/* <Field
+        name="phone"
+        type="number"
+        component={renderField}
+        label="Phone number"
+        validate={[required, phoneNumber]}
+      /> */}

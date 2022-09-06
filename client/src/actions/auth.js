@@ -13,6 +13,10 @@ import {
 } from "./type";
 import * as api from "../api/index";
 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// toast.configure();
+
 export const signin = (formValues, history, id) => async (dispatch) => {
   try {
     // console.log(formValues);
@@ -21,6 +25,14 @@ export const signin = (formValues, history, id) => async (dispatch) => {
       type: SIGNIN,
       payload: signin.data,
     });
+    // This is sign alert
+    // window.alert("Successfully LoggedIn.");
+
+    toast.success("Logged in Successfully", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+    });
+
     const cartItems = localStorage.getItem("cartItem")
       ? JSON.parse(localStorage.getItem("cartItem"))
       : "";
@@ -62,7 +74,11 @@ export const signup = (formValues, history) => async (dispatch) => {
       type: SIGNIN,
       payload: signup.data,
     });
-    window.alert("Successfully Created.");
+    // window.alert("Successfully Created.");
+    toast.success("Successfully Created", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+    });
     // localStorage.setItem("registeruser", formValues.name);
     history.push("/");
   } catch (error) {

@@ -384,7 +384,7 @@ class CartForm extends Component {
                   <div className="card mb-2">
                     <div className="card-header" id="headingThree">
                       <h5 className="m-0">
-                        <a
+                        {/* <a
                           href="#collapseFour"
                           className="text-dark collapsed"
                           data-toggle="collapse"
@@ -400,7 +400,24 @@ class CartForm extends Component {
                           {this.state.address === ""
                             ? null
                             : toast.success("Your address has been added.")}
+                        </a> */}
+                        {/* The above code has been modified to remove toast alert message */}
+                          <a
+                          href="#collapseFour"
+                          className="text-dark collapsed"
+                          data-toggle="collapse"
+                          aria-expanded="false"
+                          aria-controls="collapseFour"
+                        >
+                          Delivery Address{" "}
+                          {this.state.address === "" ? (
+                            ""
+                          ) : (
+                            <i className="fa fa-check text-success"></i>
+                          )}
+                          
                         </a>
+
                       </h5>
                     </div>
                     <div
@@ -658,7 +675,7 @@ class CartForm extends Component {
                       className="form-control"
                       value={this.state.company}
                       placeholder="Enter Company Name"
-                      onChange={(e) => {
+                      onInput={(e) => {
                         this.setState({
                           company: e.target.value,
                         });
@@ -676,6 +693,7 @@ class CartForm extends Component {
                           address: e.target.value,
                           change: true,
                         });
+                        alert(this.state.company)
                       }}
                       required
                     ></textarea>

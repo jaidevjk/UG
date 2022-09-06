@@ -303,6 +303,62 @@ class OrdersList extends Component {
     });
   }
 
+  // renderExcelData() {
+  //   // Excel Info
+  //   const orders = [];
+  //   const arr =
+  //     this.state.filteredArray.length === 0
+  //       ? this.props.orders
+  //       : this.state.filteredArray;
+  //   arr.map((order) => {
+  //     orders.push({
+  //       "Order Id": "MUG00" + order._id + 1,
+  //       "Invoice Number": "INV00" + order._id + 1,
+  //       "No. of items ordered": order.orderItems.length,
+  //       "Original Price": order.orderInfo.totalPrice,
+  //       "Discount Price (15%)": order.orderInfo.discountPrice,
+  //       "Shipping Price": order.orderInfo.shippingPrice,
+  //       "Total Price": order.orderInfo.itemsPrice,
+  //       "Order Status": order.orderStatus,
+  //       "Payment Mode":
+  //         order.orderInfo.paymentMode === "Cash on Delivery" &&
+  //         order.payment === undefined
+  //           ? "COD"
+  //           : "Online payment",
+  //       "Ordered At":
+  //         new Date(order.orderInfo.createdAt).getDate() +
+  //         "-" +
+  //         parseInt(new Date(order.orderInfo.createdAt).getMonth() + 1) +
+  //         "-" +
+  //         new Date(order.orderInfo.createdAt).getFullYear() +
+  //         " " +
+  //         new Date(order.orderInfo.createdAt).getHours() +
+  //         ":" +
+  //         new Date(order.orderInfo.createdAt).getMinutes() +
+  //         ":" +
+  //         new Date(order.orderInfo.createdAt).getSeconds(),
+  //       "Cancel Reason": order.cancelReason,
+  //       Comments: order.comments,
+  //       Transportation: order.contactInfo,
+  //       "Mode of Transport": order.modeOfTransport,
+  //       "Customer Name": order.user.username,
+  //       "Customer Number": order.user.phoneNo,
+  //       "Customer Email Id": order.user.userEmail,
+  //       "Customer Address":
+  //         order.user.address +
+  //         order.user.company +
+  //         order.user.city +
+  //         order.user.state +
+  //         order.user.country +
+  //         "-" +
+  //         order.user.pincode,
+  //     });
+  //   });
+  //   return orders;
+  // }
+
+
+
   renderExcelData() {
     // Excel Info
     const orders = [];
@@ -310,7 +366,26 @@ class OrdersList extends Component {
       this.state.filteredArray.length === 0
         ? this.props.orders
         : this.state.filteredArray;
-    arr.map((order) => {
+    arr.filter((val) => {
+      if (this.state.search === "") {
+        return val;
+      } else if (
+        val.user.username
+          .toLowerCase()
+          .includes(this.state.search.toLowerCase()) ||
+        val.orderStatus
+          .toLowerCase()
+          .includes(this.state.search.toLowerCase()) ||
+        val.user.userEmail
+          .toLowerCase()
+          .includes(this.state.search.toLowerCase())
+      ) {
+        // console.log(val._id);
+        return val;
+      }
+    })
+    .reverse()
+    .map((order) => {
       orders.push({
         "Order Id": "MUG00" + order._id + 1,
         "Invoice Number": "INV00" + order._id + 1,
@@ -356,6 +431,8 @@ class OrdersList extends Component {
     });
     return orders;
   }
+
+
 
   onSubmit(e) {
     e.preventDefault();
@@ -529,6 +606,11 @@ class OrdersList extends Component {
                     apiData={this.renderExcelData()}
                     fileName={this.state.fileName}
                   />
+                   {/* <ExportToExcel
+                    apiData={this.renderTable()}
+                    fileName={this.state.fileName}
+                  /> */}
+
                   <button
                     className="btn btn-secondary mt-2"
                     data-toggle="modal"

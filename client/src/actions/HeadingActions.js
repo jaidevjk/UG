@@ -72,6 +72,10 @@ export const updateHeading = (id, postValues) => async (dispatch) => {
       payload: updateHeading.data,
     });
     alert("Successfully updated");
+    // toast.success("Successfully updated", {
+    //   position: toast.POSITION.TOP_CENTER,
+    //   autoClose: 3000,
+    // });
   } catch (error) {
     if (error.response.status === 409) {
       console.log(error);

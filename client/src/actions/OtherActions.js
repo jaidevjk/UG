@@ -119,7 +119,11 @@ export const updateBlog = (id, postValues, image) => async (dispatch) => {
       type: UPDATE_BLOGS,
       payload: updateBlog.data,
     });
-    alert("Successfully updated");
+     alert("Successfully updated");
+    // toast.success("Successfully updated", {
+    //   position: toast.POSITION.TOP_CENTER,
+    //   autoClose: 3000,
+    // });
   } catch (error) {
     if (error.response.status === 409) {
       console.log(error);
@@ -149,7 +153,11 @@ export const deleteBlog = (id) => async (dispatch) => {
       type: DELETE_BLOGS,
       payload: id,
     });
-    alert("Blog Deleted Successfully");
+    // alert("Blog Deleted Successfully");
+    toast.success("Blog Deleted Successfully", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+    });
   } catch (error) {
     console.log(error);
     alert("Your Session has Been Expired. Please Logout and login again.");

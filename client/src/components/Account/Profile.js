@@ -200,14 +200,26 @@ class UserProfile extends Component {
                     <label>
                       Mobile Number<span className="text-danger">*</span>
                     </label>
-                    <input
+                    {/* <input
                       type="number"
                       className="form-control"
                       value={this.state.mobile}
                       onChange={(e) => {
                         this.setState({ mobile: e.target.value });
                       }}
+                    /> */}
+
+                    <input
+                     type="tel"
+                      className="form-control"
+                      pattern="[0-9]{10}"
+                      required
+                      value={this.state.mobile}
+                      onChange={(e) => {
+                        this.setState({ mobile: e.target.value });
+                      }}
                     />
+                    
                   </div>
                   <div className="form-group position-relative">
                     <label>Password</label>

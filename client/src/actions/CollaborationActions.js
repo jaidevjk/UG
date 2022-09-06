@@ -72,7 +72,11 @@ export const updateCollaborations = (id, postValues) => async (dispatch) => {
       type: UPDATE_PRODUCT,
       payload: updateCollaborations.data,
     });
-    alert("Successfully updated");
+     alert("Successfully updated");
+    // toast.success("Successfully updated", {
+    //   position: toast.POSITION.TOP_CENTER,
+    //   autoClose: 3000,
+    // });
   } catch (error) {
     if (error.response.status === 409) {
       console.log(error);
